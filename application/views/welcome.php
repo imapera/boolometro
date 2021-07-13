@@ -82,6 +82,11 @@
 							echo '</tr>';
 						}
 					?>
+					<tr>
+					  <th scope="col"></th>
+					  <th scope="col"></th>
+					  <th scope="col"><a href="<?php echo base_url('informer/listAll'); ?>">Ver todos</a></th>
+					</tr>
 				  </tbody>
 				</table>
 			</div>

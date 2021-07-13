@@ -1,3 +1,4 @@
+<?php if (($message == "reportNewSuccessful") or ($message == "reportCommentSuccessful")) { echo '<div class="container mt-3 mb-3 rounded bg-success text-white w-50 pt-2 pb-2">Denuncia registrada correctamente</div>'; }?>
 <div class="container mt-3 mb-3">
 	<h1><?php echo $newData['title']; ?></h1><hr class=" mt-0 mb-0 w-25"><a href="<?php echo base_url('platform/id/'.$newData['idPlatform']); ?>"><?php echo $newData['platformTitle']; ?></a>
 	<div class="row mt-4">
@@ -58,17 +59,124 @@
 						<div class="container mt-2 pt-2 pb-2 text-justify"><?php echo $newData['resultDescription']; ?></div>
 					</div>
 				</div>
-				<div class="row mt-4">
-					<div class="col-sm">	
-						<h2>Comentarios</h2>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row mt-4">
+		<div class="col-sm">	
+			<h2>Comentarios</h2>
+			<?php if ($this->session->userID){ ?>
+				<div class="container mt-3 mb-3 bg-light rounded pb-2 w-50">
+					<div class="row">
+						<div class="col pt-2">
+							Deja tu comentario
+						</div>
+					</div>
+						<form action="<?php echo base_url('news/addComment/'.$newData["id"]); ?>" method="POST">
+							<div class="row">
+									<div class="col-10">
+										<textarea class="form-control" id="commentContent" name="commentContent" placeholder="Escribre lo que piensas respetando siempre a los demás." rows="3" required></textarea>
+									</div>
+									<div class="col-2 align-middle">
+										<button type="submit" class="btn btn-primary" id="send" name="send" value="send">Enviar</button>
+									</div>
+							</div>
+						</form>
+				</div>
+			<?php } ?>
+			<?php foreach ($comments as $comment) { ?>
+				<div class="container mt-3 mb-3 w-75 bg-light rounded">
+					<div class="row bg-light pb-1">
+						<div class="col-md-2 pt-3">
+							<img src="<?php echo base_url('img/profileEmptyThumbail.png'); ?>" class="rounded" alt=""><br>
+							<?php echo $comment['username']?><br>
+							<?php echo $comment['date']?>
+						</div>
+						<div class="col-md-10 pt-3 text-justify">
+							<?php echo $comment['content']?>
+						</div>
+					</div>
+					<div class="row pb-1">
+						<div class="col-md-12 pt-3 text-right">
+							<small><a href="" data-toggle="modal" data-target="#<?php echo "modalComment".$comment['id']; ?>">Denunciar</a></small>
+						</div>
+					</div>
+				</div>	
+			<?php } ?>
+		</div>
+	</div>
+  <form action="<?php echo base_url('platform/report/'.$newData['id']); ?>" method="POST">
+	<div class="row mt-4">
+		<div class="col-md-auto">
+			Denunciar noticia:
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-5">
+			<select class="form-control" id="reportReason" name="reportReason" required>
+				<option value=""></option>
+				<option value="badInformation">Información incorrecta o falsa</option>
+				<option value="unrespectful">Faltas de respeto</option>
+				<option value="badLanguaje">Lenguaje inapropiado</option>
+				<option value="others">Otros</option>
+			</select>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-5">
+			<input type="text" class="form-control w-100" id="reportMessage" name="reportMessage" placeholder="Descrive la denuncia brevemente" required>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-auto">
+			<button type="submit" class="btn btn-primary" id="reportNew" name="reportNew" value="reportNew">Denunciar</button>
+		</div>
+	</div>
+  </form>
 </div>
 
-		
+<?php foreach ($comments as $comment) { ?>
+	<div class="modal fade" id="<?php echo "modalComment".$comment['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Denunciar comentario de <?php echo $comment['username']; ?></h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<?php echo $comment['content']; ?>
+			  <form action="<?php echo base_url('platform/report/'.$comment['id']); ?>" method="POST">
+				<div class="container mt-3 mb-3">
+					<div class="row">
+						<div class="col-md">
+							<select class="form-control" id="reportReason" name="reportReason" required>
+								<option value=""></option>
+								<option value="badInformation">Información incorrecta o falsa</option>
+								<option value="unrespectful">Faltas de respeto</option>
+								<option value="badLanguaje">Lenguaje inapropiado</option>
+								<option value="others">Otros</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<input type="text" class="form-control w-100" id="reportMessage" name="reportMessage" placeholder="Descrive la denuncia brevemente" required>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<button type="submit" class="btn btn-primary" id="reportComment" name="reportComment" value="reportComment">Denunciar</button>
+						</div>
+					</div>
+				</div>
+			  </form>
+		  </div>
+		</div>
+	  </div>
+	</div>
+<?php } ?>
 
 		
 

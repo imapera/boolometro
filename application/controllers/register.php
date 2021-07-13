@@ -110,13 +110,11 @@ class register extends CI_Controller {
 		if ($acceptTerms == null){
 			$validated=false;
 			$formData['form_content'][4]['error']="Debe aceptar los términos y condiciones.";
-			echo $this->input->post('acceptTerms')." CACA";
 		}	
 		
 		if ($acceptPrivacy == null){
 			$validated=false;
 			$formData['form_content'][5]['error']="Debe aceptar la política de privacidad.";
-			echo $acceptPrivacy."CACA";
 		}	
 
 		$this->load->view('templates/header', $headerData);
@@ -125,7 +123,7 @@ class register extends CI_Controller {
 			
 			$this->usersModel->insert($username, $password, $email);
 			
-			$this->load->view('welcome', $bodyData);
+			$this->load->view('registerOk', $bodyData);
 			$this->load->view('templates/footer');		
 			
 		} else {

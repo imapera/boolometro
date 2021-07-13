@@ -8,6 +8,7 @@ class userPage extends CI_Controller {
 		$this->load->helper('html');
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->model('commentModel', '', TRUE);
 		$this->load->model('usersModel', '', TRUE);
 		$this->load->model('platformsModel', '', TRUE);
 		$this->load->library('session');
@@ -25,6 +26,7 @@ class userPage extends CI_Controller {
 			$pageData['suscribedPlatforms']=$this->platformsModel->getPlatformsSuscribedByUser($this->session->userID);
 			$pageData['administratedPlatforms']=$this->platformsModel->getPlatformsAdministratedByUser($this->session->userID);
 			$pageData['ownedPlatforms']=$this->platformsModel->getPlatformsByUserID($this->session->userID);
+			$pageData['comments']=$this->commentModel->getCommentsByUserId($this->session->userID);
 			$this->load->view('userView', $pageData);
 		} else {
 			$this->load->view('templates/permissionError');

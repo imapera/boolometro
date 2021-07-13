@@ -1,6 +1,6 @@
 <form action="<?php echo base_url('register/validateAndRegister'); ?>" method="POST">
-	<div class="form-group">
-	  <div class="form-group row ">
+	<div class="form-group mt-4">
+	  <div class="form-group row">
 		<label for="<?php echo $form_content[0]["id"]; ?>" class="col-sm-2 col-form-label"><?php echo $form_content[0]["name"]; ?></label>
 		<div class="col-sm-10">
 		  <input type="text" class="form-control <?php if ($form_content[0]["error"] != "") echo "is-invalid"; ?>" id="<?php echo $form_content[0]["id"]; ?>" name="<?php echo $form_content[0]["id"]; ?>" placeholder="<?php echo $form_content[0]["name"]; ?>" value="<?php echo $form_content[0]["value"];?>">

@@ -1,4 +1,5 @@
-		<footer class="page-footer font-small bg-dark text-white pt-4">
+</div>
+		<footer class="page-footer font-small bg-dark text-white pt-4 static-bottom">
 
 		  <div class="container-fluid text-center text-md-left">
 			<div class="row">

@@ -1,3 +1,4 @@
+<?php if ($message == "reportPlatformSuccessful") { echo '<div class="container mt-3 mb-3 rounded bg-success text-white w-50 pt-2 pb-2">Denuncia registrada correctamente</div>'; }?>
 <div class="container mt-3 mb-3">
   <h1><?php echo $platformData['title']; ?></h1><hr class=" mt-0 mb-0 w-25">
   <?php echo $platformData['theme']; ?>
@@ -19,7 +20,7 @@
     <div class="col-sm">
 		<div class="container mt-3 mb-3">
 		  <div class="row mt-3">
-			<div class="col-sm">
+			<div class="col-sm text-justify">
 				<?php echo $platformData['description']; ?>
 			</div>
 		  </div>
@@ -38,60 +39,72 @@
 		  </div>
 		</div>
 	</div>
-    <div class="col-md-auto">
-		<div class="container mt-3 mb-3">
-			<div class="row mt-4">
-				<div class="col-sm">
-					<?php
-					if ($platformData['isOwner'] or $platformData['isAdministrator']) {
-						echo '<a href="'.base_url('news/registerEditNew/'.$platformData['id']).'">Añadir noticia</a> | <a href="'.base_url('informer/registerInformer/').'">Crear ficha de informador</a>';
-					} ?>
+	<?php if ($platformData['isOwner'] or $platformData['isAdministrator']) { ?>
+		<div class="col-md-3 bg-light rounded">
+			<div class="container mt-3 mb-3">
+				<div class="row mt-4">
+					<div class="col-sm">
+						<h3>Gestión del bulómetro</h3>
+					</div>
 				</div>
-			</div>
-			<div class="row mt-4">
-				<div class="col-sm">
-				<?php if ($platformData['isOwner']) { ?>
-					<table class="table">
-						<thead>
-							<th>Administradores</th>
-						</thead>
-						<tbody>
-							<?php
-								if (sizeof ($platformData['administrators'])) {
-									foreach ($platformData['administrators'] as $administrator){
-										echo '<tr>';
-										echo '<td scope="col">'.$administrator['username'].' | <a href="'.base_url('platform/deleteAdministrator/'.$platformData['id'].'/'.$administrator['id']).'">Quitar</a></td>';
-										echo '</tr>';
+				<div class="row mt-4">
+					<div class="col-sm">
+						<?php
+						if ($platformData['isOwner'] or $platformData['isAdministrator']) {
+							echo '<a href="'.base_url('news/registerEditNew/'.$platformData['id']).'">Añadir noticia</a> | <a href="'.base_url('informer/registerInformer/').'">Crear ficha de informador</a> | <a href="'.base_url('platform/moderation/'.$platformData['id']).'">Moderación y denuncias</a>';
+						} ?>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-sm">
+					<?php if ($platformData['isOwner']) { ?>
+						<table class="table">
+							<thead>
+								<th>Administradores</th>
+							</thead>
+							<tbody>
+								<?php
+									if (sizeof ($platformData['administrators'])) {
+										foreach ($platformData['administrators'] as $administrator){
+											echo '<tr>';
+											echo '<td scope="col">'.$administrator['username'].' | <a href="'.base_url('platform/deleteAdministrator/'.$platformData['id'].'/'.$administrator['id']).'">Quitar</a></td>';
+											echo '</tr>';
+										}
+									} else {
+										echo "<tr><td>No hay administradores</td></tr>";
 									}
-								} else {
-									echo "<tr><td>No hay administradores</td></tr>";
-								}
-							?>
-						</tbody>
-					</table>
-				<?php } ?>
+								?>
+							</tbody>
+						</table>
+					<?php } ?>
+					</div>
 				</div>
-			</div>
-			<div class="row mt-4">
-				<div class="col-sm">
-				<?php if ($platformData['isOwner']) { ?>
-					<p class="mb-3">Añadir nuevo administrador:</p>
-					<form action="<?php echo base_url('platform/addAdministrator/'.$platformData['id']); ?>" method="POST">
-						<select class="form-control" id="userId" name="userId" required>
-							<option value=""></option>
-							<?php
-								foreach ($users as $user){
-									echo '<option value="'.$user['id'].'">'.$user['username'].'</option>';
-								}
-							?>
-						</select>
-						<button type="submit" class="btn btn-primary mt-1" id="newsFilterSubmit" name="newsFilterSubmit" value="newsFilterSubmit">Añadir</button>
-					</form>					
-				<?php } ?>
+				<div class="row mt-4">
+					<div class="col-sm">
+					<?php if ($platformData['isOwner']) { ?>
+						<p class="mb-3">Añadir nuevo administrador:</p>
+						<form action="<?php echo base_url('platform/addAdministrator/'.$platformData['id']); ?>" method="POST">
+							<select class="form-control" id="userId" name="userId" required>
+								<option value=""></option>
+								<?php
+									foreach ($users as $user){
+										echo '<option value="'.$user['id'].'">'.$user['username'].'</option>';
+									}
+								?>
+							</select>
+							<button type="submit" class="btn btn-primary mt-1" id="newsFilterSubmit" name="newsFilterSubmit" value="newsFilterSubmit">Añadir</button>
+						</form>					
+					<?php } ?>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	<?php } ?>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm">
+		<hr>
+    </div>
   </div>
   <div class="row mt-3">
     <div class="col-sm">
@@ -154,8 +167,32 @@
 		</table>
     </div>
   </div>
+  <form action="<?php echo base_url('platform/report/'.$platformData['id']); ?>" method="POST">
+	<div class="row mt-4">
+		<div class="col-md-auto">
+			Denunciar bulómetro:
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-5">
+			<select class="form-control" id="reportReason" name="reportReason" required>
+				<option value=""></option>
+				<option value="badInformation">Información incorrecta o falsa</option>
+				<option value="unrespectful">Faltas de respeto</option>
+				<option value="badLanguaje">Lenguaje inapropiado</option>
+				<option value="others">Otros</option>
+			</select>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-5">
+			<input type="text" class="form-control w-100" id="reportMessage" name="reportMessage" placeholder="Descrive la denuncia brevemente" required>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-auto">
+			<button type="submit" class="btn btn-primary" id="reportPlatform" name="reportPlatform" value="reportPlatform">Denunciar</button>
+		</div>
+	</div>
+  </form>
 </div>
-
-		
-		
-

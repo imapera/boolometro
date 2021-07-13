@@ -21,7 +21,6 @@ class usersModel extends CI_Model
 		
 		public function existsUsername($username){
 			$query=$this->db->get_where($this->table, array('username' => $username));
-			var_dump($query->result());
 			if (sizeof($query->result()) > 0) {
 				return true;
 			} else {

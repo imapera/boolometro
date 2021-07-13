@@ -17,7 +17,7 @@
 				  <div class="row">
 					<div class="col-sm">
 						<p>Fecha de registro: <?php echo $userdata['registration_date']; ?></p>
-						<p><a href="#">Editar tus datos</a> | <a href="<?php echo base_url('platformsManagement'); ?>">Crear bulómetro</a><?php if ($userdata['isSuperuser'] == "1") echo " | <a href='".base_url('superuserManagement')."'>Área de gestión superior</a>"; ?></p>
+						<p><a href="#">Editar tus datos</a> | <a href="<?php echo base_url('platformsManagement'); ?>">Crear bulómetro</a><?php if ($userdata['isSuperuser'] == "1") echo " | <a href='".base_url('superuserManagement')."'>Área de gestión del sistema</a>"; ?></p>
 					</div>
 				  </div>
 				</div>
@@ -78,6 +78,26 @@
     <div class="col-sm">
 		Tus comentarios:
     </div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Fecha</th>
+				<th scope="col">Comentario</th>
+				<th scope="col">Noticia</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				foreach ($comments as $comment){
+					echo "<tr>";
+					echo '<td class="col-md-2">'.$comment['date'].'</td>';
+					echo '<td class="col-md-6">'.$comment['content'].'</td>';
+					echo '<td class="col-md-4"><a href="'.base_url('news/id/'.$comment['idNew']).'">'.$comment['newTitle'].'</a></td>';
+					echo '</tr>';
+				}
+			?>
+		</tbody>
+	</table>
   </div>
 </div>
 

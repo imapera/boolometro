@@ -111,7 +111,6 @@ class platformsModel extends CI_Model
 		}
 		
 		public function unsusbribeUser($idUser, $idPlatform){
-			echo "COJONES";
 			$this->db->delete('PLT_SUSCRIPTIONS', array('id_user' => $idUser, 'id_platform' => $idPlatform));
 		}
 		
@@ -150,7 +149,6 @@ class platformsModel extends CI_Model
 		}
 		
 		public function deleteAdministrator($idUser, $idPlatform){
-			echo "COJONES";
 			$this->db->delete('PLT_ADMINISTRATORS', array('id_user' => $idUser, 'id_platform' => $idPlatform));
 		}
 		

@@ -22,6 +22,7 @@
 						<tr>
 							<th scope="col">Nombre</th>
 							<th scope="col">Descripción</th>
+							<th scope="col">Temática</th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -32,7 +33,6 @@
 								echo '<td>'.$platform['title'].'</td>';
 								echo '<td><small>'.$platform['description'].'<small></td>';
 								echo '<td>'.$platform['theme'].'</td>';
-								echo '<td>'.$platform['idUser'].'</td>';
 								echo '<td><a href="'.base_url('platform/id/'.$platform['id']).'">Ver</a></td>';
 								echo '</tr>';
 							}
@@ -93,7 +93,7 @@
 			</button>
 		  </h5>
 		</div>
-		<div id="collapseThree" class="collapse <?php if ($newsFilter != "") echo 'show'; ?>" aria-labelledby="headingThree" data-parent="#new-accordion">
+		<div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#new-accordion">
 		    <div class="card-body">
 				<form action="<?php echo base_url('superUserManagement'); ?>" method="POST">
 					<input type="text" class="form-control>" id="newsFilter" name="newsFilter" placeholder="Escribe algo" value="<?php echo $newsFilter; ?>">

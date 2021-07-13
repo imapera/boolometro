@@ -1,3 +1,4 @@
+<?php if ($message == "reportInformerSuccessful") { echo '<div class="container mt-3 mb-3 rounded bg-success text-white w-50 pt-2 pb-2">Denuncia registrada correctamente</div>'; }?>
 <div class="container mt-3 mb-3">
   <h1><?php echo $informerData['name']; ?></h1><hr class=" mt-0 mb-0 w-25">Informador
   <div class="row mt-4">
@@ -104,7 +105,7 @@
 		  <?php
 			foreach ($news as $new){
 				echo '<tr>';
-				echo '<th scope="col"><p>'.$new['title'].'</p><p><small>'.$new['resume'].'</small></p><p><small>En <a href="">'.$new['platformTitle'].'</a></small></p></th>';
+				echo '<th scope="col"><p>'.$new['title'].'</p><p><small>'.$new['resume'].'</small></p><p><small>En <a href="'.base_url('platform/id/').$new['platformId'].'">'.$new['platformTitle'].'</a></small></p></th>';
 				echo '<td>'.$new['informerName'].'</td>';
 				echo '<td>'.$new['originDate'].'</td>';
 				echo '<td>';
@@ -135,6 +136,34 @@
 		</table>
     </div>
   </div>
+  <form action="<?php echo base_url('platform/report/'.$informerData['id']); ?>" method="POST">
+	<div class="row mt-4">
+		<div class="col-md-auto">
+			Denunciar perfil de informador:
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-5">
+			<select class="form-control" id="reportReason" name="reportReason" required>
+				<option value=""></option>
+				<option value="badInformation">Información incorrecta o falsa</option>
+				<option value="unrespectful">Faltas de respeto</option>
+				<option value="badLanguaje">Lenguaje inapropiado</option>
+				<option value="others">Otros</option>
+			</select>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-5">
+			<input type="text" class="form-control w-100" id="reportMessage" name="reportMessage" placeholder="Descrive la denuncia brevemente" required>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-md-auto">
+			<button type="submit" class="btn btn-primary" id="reportInformer" name="reportInformer" value="reportInformer">Denunciar</button>
+		</div>
+	</div>
+  </form>
 </div>
 
 		

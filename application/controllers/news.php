@@ -18,15 +18,16 @@ class news extends CI_Controller {
 		$headerData['header_tags'][4]=script_tag('js/bootstrap.bundle.min.js');
 		
 		$this->load->view('templates/header', $headerData);
-		$this->load->view('templates/error');
+		$this->load->view('templates/notResourceError');
 		$this->load->view('templates/footer');
 	}
 	
-	public function id($id)
+	public function id($id, $message="")
 	{
 		$this->load->helper('html');
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->model('commentModel', '', TRUE);
 		$this->load->model('newModel', '', TRUE);
 		$this->load->model('platformsModel', '', TRUE);
 		$this->load->library('session');
@@ -37,9 +38,10 @@ class news extends CI_Controller {
 		$headerData['header_tags'][3]=script_tag('js/bootstrap.min.js');
 		$headerData['header_tags'][4]=script_tag('js/bootstrap.bundle.min.js');
 		
+		$viewData['message']=$message;
 		$viewData['newData']=$this->newModel->getNewById($id);
 		$viewData['userCanEdit']=(($this->session->userID == $viewData['newData']['platformUserId']) or ($this->session->isSuperuser) or ($this->platformsModel->isAdministrator($this->session->userID, $viewData['newData']['idPlatform'])));
-		
+		$viewData['comments']=$this->commentModel->getCommentsByNewId($id);
 		$this->load->view('templates/header', $headerData);
 		$this->load->view('newView', $viewData);
 		$this->load->view('templates/footer');
@@ -275,6 +277,33 @@ class news extends CI_Controller {
 			$this->load->view('templates/permissionError');
 		}
 		
+		$this->load->view('templates/footer');
+	}
+	
+	public function addComment($id){
+		$this->load->helper('html');
+		$this->load->helper('url');
+		$this->load->helper('form');
+		$this->load->model('commentModel', '', TRUE);
+		$this->load->model('newModel', '', TRUE);
+		$this->load->library('session');
+		
+		$headerData['header_tags'][0]=link_tag('css/bootstrap.min.css');
+		$headerData['header_tags'][1]='<meta name="viewport" content="width=device-width, initial-scale=1"> ';
+		$headerData['header_tags'][2]=script_tag('js/jquery-3.5.1.min.js');
+		$headerData['header_tags'][3]=script_tag('js/bootstrap.min.js');
+		$headerData['header_tags'][4]=script_tag('js/bootstrap.bundle.min.js');
+		
+		$this->load->view('templates/header', $headerData);
+		
+		if ($this->session->userID){
+			if ($this->input->post('commentContent')){
+				$this->commentModel->addComment($this->session->userID, $id, $this->input->post('commentContent'));
+			}
+			return redirect('news/id/'.$id);
+		} else {
+			$this->load->view('templates/permissionError');
+		}
 		$this->load->view('templates/footer');
 	}
 }
