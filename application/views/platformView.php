@@ -28,10 +28,10 @@
 			<div class="col-sm">
 				<?php
 					if ($platformData['isOwner'] or $platformData['isAdministrator']) {
-						if ($platformData['isOwner']) echo '<i>Eres el propietario</i>';
-						elseif ($platformData['isAdministrator']) echo '<i>Eres administrador</i>';
-					} else echo 'Bulómetro de '.$platformData['idUser'].'</i>';
-					echo ' | Creado el <i>'.$platformData['registration_date'].'</i>';
+						if ($platformData['isOwner']) echo '<i>Eres el propietario</i> |';
+						elseif ($platformData['isAdministrator']) echo '<i>Eres administrador</i> |';
+					} else echo '';
+					echo ' Creado el <i>'.$platformData['registration_date'].'</i>';
 						
 						
 				?>			
@@ -142,7 +142,7 @@
 				echo '<td>';
 				switch ($new['result']){
 					case 0:
-						echo 'Desconocido';
+						echo 'Pendiente';
 						break;
 					case 1:
 						echo 'Acierto';
@@ -151,7 +151,7 @@
 						echo 'Fallo';
 						break;
 					case 3:
-						echo 'Indemostrable';
+						echo 'No verificable';
 						break;
 					default:
 						echo '';

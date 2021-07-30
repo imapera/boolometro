@@ -32,7 +32,7 @@ class common extends CI_Controller {
 		
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('userID');
-		$this->session->unset_userdata('superuser');
+		$this->session->unset_userdata('isSuperuser');
 		return redirect('welcome');
 	}
 }

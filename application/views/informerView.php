@@ -111,7 +111,7 @@
 				echo '<td>';
 				switch ($new['result']){
 					case 0:
-						echo 'Desconocido';
+						echo 'Pendiente';
 						break;
 					case 1:
 						echo 'Acierto';
@@ -120,7 +120,7 @@
 						echo 'Fallo';
 						break;
 					case 3:
-						echo 'Indemostrable';
+						echo 'No verificable';
 						break;
 					default:
 						echo '';

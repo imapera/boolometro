@@ -16,18 +16,6 @@
           <li class="nav-item active">
             <a class="nav-link" aria-current="page" href="<?php echo base_url(); ?>">Inicio</a>
           </li>
-		  <?php if ($this->session->username) { ?>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  Siguiendo
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				  <a class="dropdown-item" href="#">Action</a>
-				  <a class="dropdown-item" href="#">Another action</a>
-				  <a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			  </li>
-		  <?php } ?>
         </ul>
 		<?php
 			if ($this->session->username){

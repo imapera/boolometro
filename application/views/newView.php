@@ -51,10 +51,10 @@
 				<div class="row mt-4">
 					<div class="col-sm">					
 						<?php
-							if ($newData["result"] == "0") echo '<div class="container bg-info w-50 rounded text-white pt-2 pb-2"><h3>Resultado</h3><hr class="mt-1 mb-1 w-50"><h4>Resultado aún desconocido</h4></div>';
+							if ($newData["result"] == "0") echo '<div class="container bg-info w-50 rounded text-white pt-2 pb-2"><h3>Resultado</h3><hr class="mt-1 mb-1 w-50"><h4>Pendiente de verificar</h4></div>';
 							if ($newData["result"] == "1") echo '<div class="container bg-success w-50 rounded text-white pt-2 pb-2"><h3>Resultado</h3><hr class="mt-1 mb-1 w-50"><h4>Correcto</h4></div>';
 							if ($newData["result"] == "2") echo '<div class="container bg-danger w-50 rounded text-white pt-2 pb-2"><h3>Resultado</h3><hr class="mt-1 mb-1 w-50"><h4>Incorrecto</h4></div>';
-							if ($newData["result"] == "3") echo '<div class="container bg-warning w-50 rounded text-white pt-2 pb-2"><h3>Resultado</h3><hr class="mt-1 mb-1 w-50"><h4>No pudo ser determinado</h4></div>';
+							if ($newData["result"] == "3") echo '<div class="container bg-warning w-50 rounded text-white pt-2 pb-2"><h3>Resultado</h3><hr class="mt-1 mb-1 w-50"><h4>No verificable</h4></div>';
 						?>
 						<div class="container mt-2 pt-2 pb-2 text-justify"><?php echo $newData['resultDescription']; ?></div>
 					</div>

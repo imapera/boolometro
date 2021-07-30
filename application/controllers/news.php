@@ -214,13 +214,13 @@ class news extends CI_Controller {
 			$formData['form_content'][0]['id']="result";
 			$formData['form_content'][0]['error']="";
 			$formData['form_content'][0]['value']="";
-			$formData['form_content'][0]['options'][0]['name']="Desconocido";
+			$formData['form_content'][0]['options'][0]['name']="Pendiente";
 			$formData['form_content'][0]['options'][0]['value']="0";
 			$formData['form_content'][0]['options'][1]['name']="Acierto";
 			$formData['form_content'][0]['options'][1]['value']="1";
 			$formData['form_content'][0]['options'][2]['name']="Error";
 			$formData['form_content'][0]['options'][2]['value']="2";
-			$formData['form_content'][0]['options'][3]['name']="No comprobable";
+			$formData['form_content'][0]['options'][3]['name']="No verificable";
 			$formData['form_content'][0]['options'][3]['value']="3";
 			$formData['form_content'][1]['name']="Fecha de resolución";
 			$formData['form_content'][1]['id']="resultDate";
